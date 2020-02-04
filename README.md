@@ -17,7 +17,7 @@ THe major drawback tousing TBX is that there is no mastodon support, nor is ther
 * TootbotX can monitor multiple subreddits at once
 * TootbotX is fully open-source, so you don't have to give an external service full access to your social media accounts
 
-Tootbot uses the [tweepy](https://github.com/tweepy/tweepy), [PRAW](https://praw.readthedocs.io/en/latest/), [py-gfycat](https://github.com/ankeshanand/py-gfycat), [imgurpython](https://github.com/Imgur/imgurpython), [Pillow](https://github.com/python-pillow/Pillow), and [Mastodon.py](https://github.com/halcy/Mastodon.py) libraries. The Heroku version also uses the [redis-py](https://github.com/andymccurdy/redis-py) library.
+Tootbot uses the [tweepy](https://github.com/tweepy/tweepy), [PRAW](https://praw.readthedocs.io/en/latest/), [py-gfycat](https://github.com/ankeshanand/py-gfycat), [imgurpython](https://github.com/Imgur/imgurpython), [Pillow](https://github.com/python-pillow/Pillow) and [OpenCV](https://pypi.org/project/opencv-python/), [Google](https://pypi.org/project/google/), libraries.
 
 ## Disclaimer
 

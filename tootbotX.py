@@ -43,17 +43,18 @@ def get_reddit_posts(subreddit_info):
 
 def getOgTweet(query,name=None,single=False):
 	hits = []
-	for item in search(query, tld="com", num=10, stop=3, pause=2):
-		if 'twitter.com' in item:
-			if name !=None:
-				if name in item:
+	if '@'in query:
+		for item in search(query, tld="com", num=10, stop=3, pause=2):
+			if 'twitter.com' in item:
+				if name !=None:
+					if name in item:
+						hits = hits + [item]
+				else:
 					hits = hits + [item]
-			else:
-				hits = hits + [item]
-		if single and hits:
-			return hits[0]
-		else:
-			return hits
+	if single and hits:
+		return hits[0]
+	else:
+		return hits
 
 
 def get_twitter_caption(submission):
@@ -133,7 +134,7 @@ def make_post(post_dict):
 							caption = caption.encode('ascii', 'ignore').decode('ascii')
 						if BLACKLIST:
 							BLcaption = caption.lower()
-							print("[ .. ] Checking title for words in blacklist...")
+							print('[ .. ] Checking title for words in blacklist...')
 							# if ocr is enabled, add its content to the blacklist
 							if OCR_ENABLED:
 								BLcaption = f'{BLcaption}\n{ocr_results}'

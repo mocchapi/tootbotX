@@ -155,15 +155,16 @@ def make_post(post_dict):
 							print('[ OK ] Posting this on Twitter:',caption)
 							tweet = twitter.update_status(status=caption)
 						tweet_id = tweet.id_str
+						print(tweet_id)
 						# If OcrTweet is enabled, reply with OG tweet
 						if TWITTER_OCR_ENABLED and OCR_ENABLED:
 							print('[ .. ] Looking for original tweet, if it exists...')
 							try:
 								og_tweet = getOgTweet(ocr_results,single=True)
 								if og_tweet:
-									print(f'[ OK ] Found {hit}')
+									print(f'[ OK ] Found {og_tweet}')
 									print(f'[ .. ] Replying to own tweet of screenshot...')
-									twitter.update_status(str(og_tweet),in_reply_to_status_id_str=tweet_id,auto_populate_reply_metadata=True)
+									twitter.update_status(f'{og_tweet}',in_reply_to_status_id=int(tweet_id),auto_populate_reply_metadata=True)
 									print(f'[ OK ] Completed.')
 								else:
 									print('[ OK ] None found')

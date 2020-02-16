@@ -45,7 +45,7 @@ def getOgTweet(query,name=None,single=False):
 	hits = []
 	if '@'in query:
 		for item in search(query, tld="com", num=10, stop=3, pause=2):
-			if 'twitter.com' in item:
+			if 'twitter.com/status' in item:
 				if name !=None:
 					if name in item:
 						hits = hits + [item]
@@ -78,7 +78,7 @@ def get_twitter_caption(submission):
 def setup_connection_reddit(subreddit):
 	print('[ OK ] Setting up connection with Reddit...')
 	r = praw.Reddit(
-		user_agent='Tootbot',
+		user_agent='tootbotX',
 		client_id=REDDIT_AGENT,
 		client_secret=REDDIT_CLIENT_SECRET)
 	return r.subreddit(subreddit)
@@ -118,6 +118,7 @@ def make_post(post_dict):
 					try:
 						ocr_results = get_ocr(media_file,OCR_KEY)
 						print(f'[ OK ] done.')
+						print(f'[ OK ] results: {ocr_results}')
 					except BaseException as e:
 						print(f'[EROR] OCR error: {e}')
 						ocr_results = ''
@@ -200,10 +201,10 @@ try:
 		new_version = s.decode("utf-8").rstrip()
 		current_version = 2.6  # Current version of script
 		if (current_version < float(new_version)):
-			print('[WARN] A new version of Tootbot (' + str(new_version) + ') is available! (you have ' + str(current_version) + ')')
+			print('[WARN] A new version of tootbotX (' + str(new_version) + ') is available! (you have ' + str(current_version) + ')')
 			print('[WARN] Get the latest update from here: https://github.com/mocchapi/tootbotX/releases')
 		else:
-			print('[ OK ] You have the latest version of Tootbot (' + str(current_version) + ')')
+			print('[ OK ] You have the latest version of tootbotX (' + str(current_version) + ')')
 	url.close()
 except BaseException as e:
 	print('[EROR] Error while checking for updates:', str(e))
@@ -236,10 +237,7 @@ ASCII_ONLY = bool(distutils.util.strtobool(
 OCR_ENABLED = bool(distutils.util.strtobool(
 	config['BotSettings']['OcrEnabled']))
 if config['BotSettings']['Blacklist']:
-	BLACKLIST = config['BotSettings']['Hashtags']
-	BLACKLIST = [x.strip() for x in BLACKLIST.split(',')]
-else:
-	BLACKLIST = ''
+	BLACKLIST = list(config['BotSettings']['Blacklist'].split(','))
 # Settings related to media attachments
 MEDIA_POSTS_ONLY = bool(distutils.util.strtobool(
 	config['MediaSettings']['MediaPostsOnly']))
@@ -266,7 +264,7 @@ if OCR_ENABLED:
 			f.close()
 		except BaseException as e:
 			print('[EROR] ', str(e))
-			print('[EROR] Tootbot cannot continue, now shutting down')
+			print('[EROR] tootbotX cannot continue, now shutting down')
 			exit()
 	else:
 		# Read API keys from secret file
@@ -285,7 +283,7 @@ if not os.path.exists('reddit.secret'):
 	# Make sure authentication is working
 	try:
 		reddit_client = praw.Reddit(
-			user_agent='Tootbot', client_id=REDDIT_AGENT, client_secret=REDDIT_CLIENT_SECRET)
+			user_agent='tootbotX', client_id=REDDIT_AGENT, client_secret=REDDIT_CLIENT_SECRET)
 		test = reddit_client.subreddit('announcements')
 		# It worked, so save the keys to a file
 		reddit_config = configparser.ConfigParser()
@@ -298,7 +296,7 @@ if not os.path.exists('reddit.secret'):
 		f.close()
 	except BaseException as e:
 		print('[EROR] Error while logging into Reddit:', str(e))
-		print('[EROR] Tootbot cannot continue, now shutting down')
+		print('[EROR] tootbotX cannot continue, now shutting down')
 		exit()
 else:
 	# Read API keys from secret file
@@ -328,7 +326,7 @@ if not os.path.exists('imgur.secret'):
 		f.close()
 	except BaseException as e:
 		print('[EROR] Error while logging into Imgur:', str(e))
-		print('[EROR] Tootbot cannot continue, now shutting down')
+		print('[EROR] tootbotX cannot continue, now shutting down')
 		exit()
 else:
 	# Read API keys from secret file
@@ -356,7 +354,7 @@ if POST_TO_TWITTER is True:
 				  twitter_username)
 		except BaseException as e:
 			print('[EROR] Error while logging into Twitter:', str(e))
-			print('[EROR] Tootbot cannot continue, now shutting down')
+			print('[EROR] tootbotX cannot continue, now shutting down')
 			exit()
 	else:
 		# If the secret file doesn't exist, it means the setup process hasn't happened yet
@@ -392,7 +390,7 @@ if POST_TO_TWITTER is True:
 			f.close()
 		except BaseException as e:
 			print('[EROR] Error while logging into Twitter:', str(e))
-			print('[EROR] Tootbot cannot continue, now shutting down')
+			print('[EROR] tootbotX cannot continue, now shutting down')
 			exit()
 
 

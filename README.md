@@ -2,7 +2,7 @@
 
 This is a Python bot that looks up posts from specified subreddits and automatically posts them on Twitter. It is based on [Tootbot](https://github.com/corbindavenport/tootbot), which is based on [reddit-twitter-bot](https://github.com/rhiever/reddit-twitter-bot).
 There are a few notable features that distinguish it from the original Tootbot, primarily issues and features ive needed.
-THe major drawback tousing TBX is that there is no mastodon support, nor is there a heroku version.
+The major drawback to using TBX is that there is no mastodon support, nor is there a heroku version.
 
 **Features:**
 
@@ -25,4 +25,6 @@ The developers of Tootbot hold no liability for what you do with this script or 
 
 ## Setup and usage
 
-For instructions on setting up and using Tootbot, please visit [the wiki](https://github.com/corbindavenport/tootbot/wiki).
+Instructions are lagerly the same at the [original tootbot instructions](https://github.com/corbindavenport/tootbot/wiki).
+TootbotX requires you to run `Get_latest_tweepy.py` *once* to install the latest git version of Tweepy.
+This is only temporary and will not be required when Tweepy 3.9 is released.

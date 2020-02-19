@@ -148,9 +148,11 @@ def make_post(post_dict):
 
 						# Post the tweet
 						if (media_file):
-							print(
-								'[ OK ] Posting this on Twitter with media attachment:', caption)
-							tweet = twitter.update_with_media(filename=media_file, status=caption)
+							print('[ OK ] Posting this on Twitter with media attachment:', caption)
+							media_object = twitter.media_upload(media_file)
+							if OCR_ALT_TEXT_ENABLED and OCR_ENABLED:
+								twitter.create_media_metadata(media_object.media_id,f'Disclaimer: alt text is automatically generated. {ocr_results}')
+							tweet = twitter.update_status(caption,media_ids=[media_object.media_id])
 							# Clean up media file
 						else:
 							print('[ OK ] Posting this on Twitter:',caption)
@@ -202,7 +204,7 @@ try:
 		current_version = 2.6  # Current version of script
 		if (current_version < float(new_version)):
 			print('[WARN] A new version of tootbotX (' + str(new_version) + ') is available! (you have ' + str(current_version) + ')')
-			print('[WARN] Get the latest update from here: https://github.com/mocchapi/tootbotX/releases')
+			print('[WARN] Get the latest update from here: https://github.com/mocchapi/tootbotX/')
 		else:
 			print('[ OK ] You have the latest version of tootbotX (' + str(current_version) + ')')
 	url.close()
@@ -238,6 +240,8 @@ OCR_ENABLED = bool(distutils.util.strtobool(
 	config['BotSettings']['OcrEnabled']))
 if config['BotSettings']['Blacklist']:
 	BLACKLIST = list(config['BotSettings']['Blacklist'].split(','))
+else:
+	BLACKLIST = []
 # Settings related to media attachments
 MEDIA_POSTS_ONLY = bool(distutils.util.strtobool(
 	config['MediaSettings']['MediaPostsOnly']))
@@ -246,6 +250,8 @@ POST_TO_TWITTER = bool(distutils.util.strtobool(
 	config['Twitter']['PostToTwitter']))
 TWITTER_OCR_ENABLED = bool(distutils.util.strtobool(
 	config['Twitter']['OcrTweet']))
+OCR_ALT_TEXT_ENABLED = bool(distutils.util.strtobool(
+	config['Twitter']['OcrAltText']))
 
 #setup ocr.space
 if OCR_ENABLED:

@@ -10,7 +10,7 @@ The major drawback to using TBX is that there is no mastodon support, nor is the
 * TootbotX allows you to set a list of blacklisted words that will force a post to be skipped [TBX]
 * TootbotX includes options for OCR to check images for blacklisted words [TBX]
 * TootbotX allows for automated searches for the original tweet if the reddit post is a twitter screenshot, and can post a link to the original as a reply [TBX]
-* TootbotX can either run locally, or in the cloud with a free Heroku account
+* TootbotX can include the OCR results as alt text
 * Media from direct links, Gfycat, Imgur, Reddit, and Giphy is automatically attached in the social media post
 * Links that do not contain media can be skipped, ideal for meme accounts like [@traabot](https://twitter.com/traabot)
 * NSFW content, spoilers, and self-posts can be filtered
